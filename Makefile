@@ -1,4 +1,4 @@
-FILES = main mlxbuilder colorbuilder pixelputer
+FILES = main mlxbuilder colorbuilder pixelputer cgplayer cgmap imgtools
 OFILES = $(addsuffix .o, $(FILES))
 FLAGS = 
 FLAGS2 = -Wall -Wextra -Werror

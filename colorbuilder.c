@@ -1,4 +1,23 @@
-#include "mlxcontrols.h"
+#include "cgmlx.h"
+
+s_cgcolor	colorrgb(int r, int g, int b)
+{
+	s_cgcolor res;
+
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	{
+		res.a = 0;
+		res.r = 0;
+		res.g = 0;
+		res.b = 0;
+		return (res);	
+	}
+	res.a = 0;
+	res.r = r;
+	res.g = g;
+	res.b = b;
+	return (res);
+}
 
 s_cgcolor colorwhite()
 {

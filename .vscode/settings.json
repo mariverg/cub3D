@@ -1,5 +1,12 @@
 {
 	"files.associations": {
-		"mlxcontrols.h": "c"
+		"mlxcontrols.h": "c",
+		"cggeometries.h": "c",
+		"cgmaths.h": "c",
+		"cgplayer.h": "c",
+		"stdlib.h": "c",
+		"cgmlx.h": "c",
+		"stdio.h": "c",
+		"cmath": "c"
 	}
 }
