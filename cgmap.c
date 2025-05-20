@@ -29,6 +29,8 @@ s_map	*demomap()
 		res->raw[i][j] = 0;
 		i++;
 	}
+	res->raw[4][1] = '1';
+	res->raw[4][2] = '1';
 	res->raw[i] = 0;
 	res->lsize = 100;
 	return (res);

@@ -2,24 +2,28 @@
 #include <stdio.h>
 #include "cub3d.h"
 
-# define TILESIZE 10
+# define TILESIZE 31
 
 void	paintplayer(s_game *game)
 {
-	float dx;
-	float dy;
+	float	hx;
+	float	hy;
+	float	vx;
+	float	vy;
+	float	horctn;
+	float	verctn;
 
-	sqaretoimg(game->cgmlx->imgdata, game->player->x, game->player->y, 255, TILESIZE / 2);
-	getverpoint(game->player, 20, &dx, &dy);
-	linetoimg(game->cgmlx, game->player->x, game->player->y, dx, dy);
+	pixeltoimg(game->cgmlx->imgdata, game->player->x * TILESIZE, game->player->y * TILESIZE, 255);
+	horctn = gethorpoint(game->player, &hx, &hy);
+	verctn = getverpoint(game->player, &vx, &vy);
+	if(horctn > verctn)
+		linetoimg(game->cgmlx, game->player->x * TILESIZE, game->player->y * TILESIZE, vx * TILESIZE, vy * TILESIZE);
+	else
+		linetoimg(game->cgmlx, game->player->x * TILESIZE, game->player->y * TILESIZE, hx * TILESIZE, hy * TILESIZE);
 }
 
 int render_next_frame(s_game *game)
 {
-	// fillscreen(game->cgmlx);
-	// displaceplayer(game->player);
-	// paintmap(game->cgmlx, game->map->raw, game->map->lsize);
-	// sqaretosecreen(game->cgmlx, game->player->x, game->player->y);
 	static int i = 1;
 	if (i)
 	{
@@ -45,19 +49,19 @@ int	key_event(int keycode, s_game *game)
 	}
 	else if (keycode == 119)
 	{
-		game->player->speed = game->player->speed + 0.1f;
+		game->player->speed = game->player->speed + 0.01f;
 	}
 	else if (keycode == 115)
 	{
-		game->player->speed = game->player->speed - 0.1f;
+		game->player->speed = game->player->speed - 0.01f;
 	}
-	printf("Hello from key_hook %i!\n", keycode);
+	// printf("Hello from key_hook %i!\n", keycode);
 	return (0);
 }
 
 int mouse_event(int button, int x, int y, s_game *game)
 {
-	printf("Hello from mouse %i!\n", button);
+	// printf("Hello from mouse %i!\n", button);
 
 	sqaretoimg(game->cgmlx->imgdata, x, y, 255, 5);
 	mlx_put_image_to_window(game->cgmlx->mlx, game->cgmlx->win, game->cgmlx->imgdata->img, 0, 0);
@@ -72,7 +76,7 @@ int main()
 	s_game	game;
 
 	game.cgmlx = initcgmlx(800, 800);
-	game.player = newplayer(100,100,0);
+	game.player = newplayer(1,1,0);
 	game.map = demomap();
 
 	mlx_key_hook(game.cgmlx->win, &key_event, &game);

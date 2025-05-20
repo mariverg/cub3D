@@ -69,7 +69,7 @@ void fillscreenimggrid(s_cgmlx *m, int line)
 		j = 0;
 		while (j < m->tall){
 			if (i % line == 0 || j % line == 0)
-				pixeltoimg(m->imgdata, i, j, color);
+				pixeltoimg(m->imgdata, i, j, 0);
 			else
 				pixeltoimg(m->imgdata, i, j, 0);
 			j++;
@@ -118,7 +118,11 @@ void paintmapimg(s_cgmlx *m, char **raw, float sz)
 		j = 0;
 		while (raw[i][j]){
 			if (raw[i][j] == '1')
-				sqaretoimg(m->imgdata, i * sz + sz, j * sz + sz, color, half);
+			{
+				// pixeltoimg(m->imgdata, i, j, color);
+				// sqaretoimg(m->imgdata, i * sz + sz, j * sz + sz, color, half);
+				sqaretoimg(m->imgdata, i * sz + half, j * sz + half, color, half);
+			}
 			j++;
 		}
 		i++;

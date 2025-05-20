@@ -1,14 +1,14 @@
 #include "cgplayer.h"
 
-s_player	*newplayer(int x, int y, float dir)
+s_player	*newplayer(float x, float y, float dir)
 {
 	s_player	*res;
 
 	res = malloc(sizeof(s_player));
 	if (!res)
 		return (0);
-	res->x = x;
-	res->y = y;
+	res->x = x + 0.5;
+	res->y = y + 0.5;
 	res->dir = dir;
 	res->speed = 0;
 	return (res);
@@ -43,10 +43,17 @@ void	getpathpoint(s_player *p, float len, float *x, float *y)
 	*y = p->y + *y;	
 }
 
-void	getverpoint(s_player *p, float len, float *x, float *y)
+float	getnextcross(float *x, float *y, float sinfac, float cosfac, char **map)
+{
+	
+}
+
+float	getverpoint(s_player *p, float *x, float *y)
 {
 	float	factor;
 	float	micos;
+	float	defase;
+	int		fullnbr;
 
 	micos = cos(p->dir);
 	if (micos != 0)
@@ -55,21 +62,34 @@ void	getverpoint(s_player *p, float len, float *x, float *y)
 	{
 		*x = 0;
 		*y = 0;
-		return ;
+		return (100);
 	}
+	if (micos > 0)
+	{
+		fullnbr = (int)p->x + 1;
+		defase = fullnbr - p->x;
+	}
+	else
+	{
+		fullnbr = (int)p->x;
+		defase = p->x - fullnbr;
+	}
+	factor = factor * defase;
 	if (factor < 0)
 		factor = -factor;
-	len = len * factor;
-	*x = cos(p->dir) * len;
-	*y = sin(p->dir) * len;
+	*x = cos(p->dir) * factor;
+	*y = sin(p->dir) * factor;
 	*x = p->x + *x;
-	*y = p->y + *y;	
+	*y = p->y + *y;
+	return (factor);
 }
 
-void	gethorpoint(s_player *p, float len, float *x, float *y)
+float	gethorpoint(s_player *p, float *x, float *y)
 {
 	float	factor;
 	float	misin;
+	float	defase;
+	int		fullnbr;
 
 	misin = sin(p->dir);
 	if (misin != 0)
@@ -78,13 +98,24 @@ void	gethorpoint(s_player *p, float len, float *x, float *y)
 	{
 		*x = 0;
 		*y = 0;
-		return ;
+		return (100);
 	}
+	if (misin > 0)
+	{
+		fullnbr = (int)p->y + 1;
+		defase = fullnbr - p->y;
+	}
+	else
+	{
+		fullnbr = (int)p->y;
+		defase = p->y - fullnbr;
+	}
+	factor = factor * defase;
 	if (factor < 0)
 		factor = -factor;
-	len = len * factor;
-	*x = cos(p->dir) * len;
-	*y = sin(p->dir) * len;
+	*x = cos(p->dir) * factor;
+	*y = sin(p->dir) * factor;
 	*x = p->x + *x;
-	*y = p->y + *y;	
+	*y = p->y + *y;
+	return (factor);
 }
