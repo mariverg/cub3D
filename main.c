@@ -1,87 +1,82 @@
-#include <unistd.h>
-#include <stdio.h>
 #include "cub3d.h"
+#include <unistd.h>
+#include <fcntl.h>
 
-# define TILESIZE 31
+#include <stdio.h>
 
-void	paintplayer(s_game *game)
+int dokeydown(int keycode, s_game *param)
 {
-	float	hx;
-	float	hy;
-	float	vx;
-	float	vy;
-	float	horctn;
-	float	verctn;
-
-	pixeltoimg(game->cgmlx->imgdata, game->player->x * TILESIZE, game->player->y * TILESIZE, 255);
-	horctn = gethorpoint(game->player, &hx, &hy);
-	verctn = getverpoint(game->player, &vx, &vy);
-	if(horctn > verctn)
-		linetoimg(game->cgmlx, game->player->x * TILESIZE, game->player->y * TILESIZE, vx * TILESIZE, vy * TILESIZE);
-	else
-		linetoimg(game->cgmlx, game->player->x * TILESIZE, game->player->y * TILESIZE, hx * TILESIZE, hy * TILESIZE);
+	if (keycode == 'd')
+		param->gplayer->turning = 1;
+	else if (keycode == 'a')
+		param->gplayer->turning = -1;
+	else if (keycode == 'w')
+		param->gplayer->moving = 1;
+	else if (keycode == 's')
+		param->gplayer->moving = -1;
+	return (0);
 }
-
-int render_next_frame(s_game *game)
+int dokeyup(int keycode, s_game *param)
 {
-	static int i = 1;
-	if (i)
-	{
-		fillscreenimggrid(game->cgmlx, TILESIZE);
-		displaceplayer(game->player);
-		paintmapimg(game->cgmlx, game->map->raw, TILESIZE);
-		paintplayer(game);
-		mlx_put_image_to_window(game->cgmlx->mlx, game->cgmlx->win, game->cgmlx->imgdata->img, 0, 0);
-		// i = 0;
-	}
+	if (keycode == 'd')
+		param->gplayer->turning = 0;
+	else if (keycode == 'a')
+		param->gplayer->turning = 0;
+	else if (keycode == 'w')
+		param->gplayer->moving = 0;
+	else if (keycode == 's')
+		param->gplayer->moving = 0;
 	return (0);
 }
 
-int	key_event(int keycode, s_game *game)
+int domouse(int button, int x, int y, s_game *param)
 {
-	if (keycode == 97)
-	{
-		game->player->dir = game->player->dir - 0.1f;
-	}
-	else if (keycode == 100)
-	{
-		game->player->dir = game->player->dir + 0.1f;
-	}
-	else if (keycode == 119)
-	{
-		game->player->speed = game->player->speed + 0.01f;
-	}
-	else if (keycode == 115)
-	{
-		game->player->speed = game->player->speed - 0.01f;
-	}
-	// printf("Hello from key_hook %i!\n", keycode);
+	write(1, "hola", 4);
+	return (0);
+}
+int domousemove(int x, int y, s_game *param)
+{
+	write(1, "hola", 4);
 	return (0);
 }
 
-int mouse_event(int button, int x, int y, s_game *game)
+int update(s_game *cub3d)
 {
-	// printf("Hello from mouse %i!\n", button);
 
-	sqaretoimg(game->cgmlx->imgdata, x, y, 255, 5);
-	mlx_put_image_to_window(game->cgmlx->mlx, game->cgmlx->win, game->cgmlx->imgdata->img, 0, 0);
-
-	// if (game->cgmlx->mlx)
-	// 	sqaretosecreen(game->cgmlx, x, y);
+	float x = 1;
+	float y = 1;
+	updateplayer(cub3d->gplayer, cub3d->gmap->raw);
+	fillscreenimg(cub3d->gscreen);
+	paint3d(cub3d->gscreen, cub3d->gplayer->renderdata, cub3d->resolution);
+	printmapimg(cub3d->gscreen->imgdata, cub3d->gmap->raw, MINIMAPSZ);
+	castray(&(cub3d->gplayer->position), &x, &y, cub3d->gmap->raw);
+	// printf("la pos es x=%f y=%f\n", cub3d->gplayer->position.x, cub3d->gplayer->position.y);
+	linetoimg(cub3d->gscreen, cub3d->gplayer->position.x * MINIMAPSZ, cub3d->gplayer->position.y * MINIMAPSZ, x * MINIMAPSZ, y * MINIMAPSZ);
+	
+	updatescreen(cub3d->gscreen);
 	return (0);
 }
 
-int main()
+int main(int argc, char **argv)
 {
-	s_game	game;
+	s_game	*cub3d;
+	int fd;
 
-	game.cgmlx = initcgmlx(800, 800);
-	game.player = newplayer(1,1,0);
-	game.map = demomap();
+	fd = open("mapaa.cub", O_RDONLY);
+	cub3d = newgame(800, 600, fd, 150);
 
-	mlx_key_hook(game.cgmlx->win, &key_event, &game);
-	mlx_mouse_hook(game.cgmlx->win, &mouse_event, &game);
-	mlx_loop_hook(game.cgmlx->mlx, &render_next_frame, &game);
-	mlx_loop(game.cgmlx->mlx);
+
+	
+	mlx_hook(cub3d->gscreen->win, 2, (1L<<0), dokeydown, cub3d);     // KeyPress
+	mlx_hook(cub3d->gscreen->win, 3, (1L<<1), dokeyup, cub3d);       // KeyRelease
+	// mlx_hook(cub3d->gscreen->win, 4, (1L<<2), domouse, cub3d);       // ButtonPress
+	// mlx_hook(cub3d->gscreen->win, 5, (1L<<3), domouse, cub3d);       // ButtonRelease
+	// mlx_hook(cub3d->gscreen->win, 6, (1L<<6), domousemove, cub3d);   // MotionNotify
+	// update(cub3d);
+	
+	mlx_loop_hook(cub3d->gscreen->mlx, &update, cub3d);
+	mlx_loop(cub3d->gscreen->mlx);
+	
+	endgame(cub3d);
 	return (0);
 }

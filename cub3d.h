@@ -1,15 +1,20 @@
 #ifndef CUB3D
 # define CUB3D
 
-#include "cgmlx.h"
-#include "cgplayer.h"
-#include "cgmap.h"
+# include "libft.h" 
+# include "cgscreen.h"
+# include "cgitems.h"
+
+# define MINIMAPSZ 25
 
 typedef struct t_game
 {
-	s_cgmlx		*cgmlx;
-	s_player	*player;
-	s_map		*map;
+	s_cgscreen	*gscreen;
+	s_map		*gmap;
+	s_player	*gplayer;
+	int			resolution;
 }	s_game;
 
+s_game	*newgame(int x, int y, int fd, int resolution);
+void	endgame(s_game *dat);
 #endif
