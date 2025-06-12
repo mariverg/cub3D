@@ -27,7 +27,7 @@ void	printmapdata(s_map *mp)
 	free(aux);
 	write(1,"\n",1);
 
-	write(1,"textures ",7);
+	write(1,"textures\n",9);
 	write(1,mp->textures[0],ft_strlen(mp->textures[0]));
 	write(1," ",1);
 	write(1,mp->textures[1],ft_strlen(mp->textures[1]));
@@ -65,7 +65,11 @@ void	fillmap(s_map *dat, t_list *tl)
 	int i;
 
 	dat->maxy = mpsize(tl);
+	if (!dat->maxy)
+		return ;
 	dat->raw = malloc(sizeof(char *) * (dat->maxy + 1));
+	if (!dat->raw)
+		return ;
 	i = 0;
 	while (tl)
 	{
@@ -113,7 +117,10 @@ int identifyline(char *c)
 	else if (ft_strncmp(c, "1", 1) == 0 || ft_strncmp(c, "0", 1) == 0)
 		return (7);
 	if (*c)
-		return (-1);
+	{
+		printf("errorline in .cub\n");
+		exit(66);
+	}
 	return (0);
 }
 
@@ -122,7 +129,7 @@ t_list	*extractlines(int fd)
 {
 
 	int i;
-	char	cont[512];
+	char	cont[1024];
 	t_list	*milist;
 	char *aux;
 	char *c;

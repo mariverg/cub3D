@@ -49,21 +49,21 @@ void	paraleltoimg(s_imgdata *data, int xa, int ya, int color, int xb, int yb)
 	}
 }
 
-void fillscreenimg(s_cgscreen *m)
+void fillscreenimg(s_cgscreen *m, int colorc, int colorf)
 {
 	int 		i;
 	int 		j;
-	s_cgcolor	col;
 	int			color;
 
 	i = 0;
-	col = colorblack();
-	color = colortoint(&col);
-	while (i < m->wide)
+	color = colorc;
+	while (i < m->tall)
 	{
+		if (i == m->tall / 2)
+			color = colorf;
 		j = 0;
-		while (j < m->tall){
-			pixeltoimg(m->imgdata, i, j, color);
+		while (j < m->wide){
+			pixeltoimg(m->imgdata, j, i, color);
 			j++;
 		}
 		i++;

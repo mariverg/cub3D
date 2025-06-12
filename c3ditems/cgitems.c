@@ -12,17 +12,22 @@ s_player	*initplayer(float x, float y, char dir, int resolution)
 	res->moving = 0;
 	res->turning = 0;
 	res->resolution = resolution;
-	res->renderdata = malloc(sizeof(float) * (resolution * 2));
+	res->renderdata = malloc(sizeof(float) * (resolution * 3));
 	if (!res->renderdata)
 		return (0);
 	if (dir == 'N')
-		res->position.dir = 1.6;
+		res->position.dir = 4.7124;
 	else if (dir == 'E')
 		res->position.dir = 0;
 	else if (dir == 'S')
-		res->position.dir = 3.14;
-	else if (dir == 'O')
-		res->position.dir = 4.8;
+		res->position.dir = 1.5708;
+	else if (dir == 'W')
+		res->position.dir = 3.1416;
+	else
+	{
+		perror("player load failed\n");
+		return (0);
+	}
 	return (res);
 }
 
@@ -32,13 +37,45 @@ void	endplayer(s_player *dat)
 	free(dat);
 }
 
+s_map	*ceromap()
+{
+	s_map	*res;
+
+	res = malloc(sizeof(s_map));
+	if (!res)
+		return (0);
+	res->px = 0;
+	res->py = 0;
+	res->pdir = 0;
+	res->textures[0] = 0;
+	res->textures[1] = 0;
+	res->textures[2] = 0;
+	res->textures[3] = 0;
+	res->fcolor = 0;
+	res->ccolor = 0;
+	res->raw = 0;
+	res->maxy = 0;
+	return (res);
+}
+
+int validatemap(s_map *map)
+{
+	if (!map->px || !map->py || !map->pdir)
+		return (1);
+	if (!map->textures[0] || !map->textures[1] || !map->textures[2] || !map->textures[3])
+		return (2);
+	if (!map->raw)
+		return (3);
+	return (0);
+}
+
 s_map	*initmap(int fd)
 {
 	s_map *res;
 	t_list	*milines;
 	t_list	*aux;
 
-	res= malloc(sizeof(s_map));
+	res = ceromap();
 	if (!res)
 		return (0);
 	milines = extractlines(fd);
@@ -56,8 +93,16 @@ s_map	*initmap(int fd)
 			free(aux->content);
 		free(aux);
 	}
-	printmapdata(res);
-	return (res);
+	if (!validatemap(res))
+	{
+		printmapdata(res);
+		return (res);
+	}
+	else
+	{
+		printf ("required data missing, code = %i\n", validatemap(res));
+		return (0);
+	}
 }
 
 void	endmap(s_map *dat)

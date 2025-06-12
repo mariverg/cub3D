@@ -46,7 +46,7 @@ int update(s_game *cub3d)
 	float x = 1;
 	float y = 1;
 	updateplayer(cub3d->gplayer, cub3d->gmap->raw);
-	fillscreenimg(cub3d->gscreen);
+	fillscreenimg(cub3d->gscreen, cub3d->gmap->ccolor, cub3d->gmap->fcolor);
 	paint3d(cub3d->gscreen, cub3d->gplayer->renderdata, cub3d->resolution);
 	printmapimg(cub3d->gscreen->imgdata, cub3d->gmap->raw, MINIMAPSZ);
 	castray(&(cub3d->gplayer->position), &x, &y, cub3d->gmap->raw);
@@ -63,8 +63,9 @@ int main(int argc, char **argv)
 	int fd;
 
 	fd = open("mapaa.cub", O_RDONLY);
-	cub3d = newgame(800, 600, fd, 150);
-
+	cub3d = newgame(800, 600, fd, 400);
+	if (!cub3d)
+		return (0);
 
 	
 	mlx_hook(cub3d->gscreen->win, 2, (1L<<0), dokeydown, cub3d);     // KeyPress

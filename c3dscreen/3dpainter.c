@@ -1,22 +1,25 @@
 #include "cgscreen.h"
 
-void paintcollumn(s_cgscreen *m, int xd, int wid, float distance)
+void paintcollumn(s_cgscreen *m, int xd, int wid, float distance, int col)
 {
 	int x;
 	int y;
 	int	dy;
 	int	centery;
-	int color = 0x000000ff;
+	int color = col;
 
-	dy = m->tall / distance;
-	if (distance > 1)
-	{
-		color = color - (distance * 20);
-		if (color < 0)
-		{
-			color = 10; 
-		}
-	}
+	if (distance > 2)
+		dy = m->tall / distance;
+	else
+		dy = m->tall / 2;
+	// if (distance > 1)
+	// {
+	// 	color = color - (distance * 20);
+	// 	if (color < 0)
+	// 	{
+	// 		color = 10; 
+	// 	}
+	// }
 	centery = m->tall / 2;
 
 	x = 0;
@@ -38,13 +41,24 @@ void	paint3d(s_cgscreen *m, float *renderdata, int resolution)
 	float stepsizef = (float)m->wide / resolution;
 	float x = 0.0f;
 	int i = 0;
+	int col;
 	while (i < resolution)
 	{
 		int xd = (int)roundf(x);
 		int next_xd = (int)roundf(x + stepsizef);
 		int width = next_xd - xd;
 		if (width > 0)
-			paintcollumn(m, xd, width, renderdata[i * 2]);
+		{
+			if (renderdata[(i * 3) + 1] == 0)
+				col = 255;
+			else if(renderdata[(i * 3) + 1] == 1)
+				col = 0x0000ff00;
+			else if(renderdata[(i * 3) + 1] == 2)
+				col = 0x00ff0000;
+			else if(renderdata[(i * 3) + 1] == 3)
+				col = 0x00aaaaaa;
+			paintcollumn(m, xd, width, renderdata[i * 3], col);
+		}
 		x += stepsizef;
 		i++;
 	}

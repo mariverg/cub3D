@@ -55,5 +55,6 @@ void		endplayer(s_player *dat);
 void		updateplayer(s_player *dat, char **map);
 
 float	castray(s_vector *p, float *x, float *y, char **map);
+float	castrenderray(s_vector *p, float *cuad, float *dist, char **map);
 void	printmapdata(s_map *mp);
 #endif

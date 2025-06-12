@@ -66,7 +66,7 @@ int securemap(int x, int y, char **map)
 	{
 		map++;
 		if (!(*map))
-			return (1);
+			return (0);
 		y--;
 	}
 	aux = *map;
@@ -74,7 +74,7 @@ int securemap(int x, int y, char **map)
 	{
 		aux++;
 		if (!(*aux))
-			return (1);
+			return (0);
 		x--;
 	}
 	if ((*aux) == '1')
@@ -124,7 +124,6 @@ int inmap(float x, float y, int cuad, float angle, char **map)
 // 	return (0);
 // }
 
-#include <stdio.h>
 float	castray(s_vector *p, float *x, float *y, char **map)
 {
 	int MAXCICLES = 40;
@@ -171,6 +170,72 @@ float	castray(s_vector *p, float *x, float *y, char **map)
 				distver = getverpoint(p, &(miray.vx), &(miray.vy), cicver);
 			}
 		}
+		else
+		    break;
+	}
+	return (INFINITY);
+}
+
+float	castrenderray(s_vector *p, float *cuad, float *dist, char **map)
+{
+	int MAXCICLES = 40;
+	s_ray	miray;
+	float	disthor;
+	float	distver;
+	float	res;
+	float	x;
+	float	y;
+	int		cichor = 0;
+	int		cicver = 0;
+
+	disthor = gethorpoint(p, &(miray.hx), &(miray.hy), cichor);
+	distver = getverpoint(p, &(miray.vx), &(miray.vy), cicver);
+	while (1)
+	{
+		if (disthor <= distver && cichor < MAXCICLES)
+		{
+			if (inmap(miray.hx, miray.hy, 0, p->dir, map))
+			{
+				x = miray.hx;
+				y = miray.hy;
+				res = hypot(x - p->x, y - p->y);
+				if (y - p->y > 0)
+					*cuad = 0;
+				else
+					*cuad = 2;
+				*dist = x;
+				// printf("Horizontal en x=%f   y=%f.\n", *x, *y);
+				return (res);
+			}
+			else
+			{
+				cichor++;
+				disthor = gethorpoint(p, &(miray.hx), &(miray.hy), cichor);
+			}
+		}
+		else if (cicver < MAXCICLES)
+		{
+			if (inmap(miray.vx, miray.vy, 1, p->dir, map))
+			{
+				x = miray.vx;
+				y = miray.vy;
+				res = hypot(x - p->x, y - p->y);
+				if (x - p->x > 0)
+					*cuad = 1;
+				else
+					*cuad = 3;
+				*dist = y;
+				// printf("Vertical en x=%f   y=%f.\n", *x, *y);
+				return (res);
+			}
+			else
+			{
+				cicver++;
+				distver = getverpoint(p, &(miray.vx), &(miray.vy), cicver);
+			}
+		}
+		else
+		    break;
 	}
 	return (INFINITY);
 }
