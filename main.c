@@ -6,6 +6,8 @@
 
 int dokeydown(int keycode, s_game *param)
 {
+	if (keycode == 65307)
+    close_game(param);
 	if (keycode == 'd')
 		param->gplayer->turning = 1;
 	else if (keycode == 'a')
@@ -18,6 +20,7 @@ int dokeydown(int keycode, s_game *param)
 }
 int dokeyup(int keycode, s_game *param)
 {
+
 	if (keycode == 'd')
 		param->gplayer->turning = 0;
 	else if (keycode == 'a')
@@ -57,7 +60,7 @@ int update(s_game *cub3d)
 	return (0);
 }
 
-int main(int argc, char **argv)
+/* int main(int argc, char **argv)
 {
 	s_game	*cub3d;
 	int fd;
@@ -80,4 +83,22 @@ int main(int argc, char **argv)
 	
 	endgame(cub3d);
 	return (0);
+} */
+
+
+int main(int argc, char **argv) {
+    s_game *cub3d;
+    int fd;
+
+	fd = open("mapaa.cub", O_RDONLY);
+    cub3d = newgame(800, 600, fd, 150);
+
+    mlx_hook(cub3d->gscreen->win, 2, (1L << 0), dokeydown, cub3d);
+    mlx_hook(cub3d->gscreen->win, 3, (1L << 1), dokeyup, cub3d);
+    mlx_hook(cub3d->gscreen->win, 17, 0, close_game, cub3d);
+    mlx_loop_hook(cub3d->gscreen->mlx, update, cub3d);
+
+    mlx_loop(cub3d->gscreen->mlx);
+	endgame(cub3d);
+    return (0);
 }

@@ -1,5 +1,5 @@
-MAINILES = main cggame
-SCREENFILES = c3dscreen/mlxbuilder c3dscreen/imgtools c3dscreen/colorbuilder c3dscreen/mappainter c3dscreen/3dpainter 
+MAINILES = main cggame render
+SCREENFILES = c3dscreen/mlxbuilder c3dscreen/imgtools c3dscreen/colorbuilder c3dscreen/mappainter c3dscreen/3dpainter  c3dscreen/texture_loader c3dscreen/texture_utils
 ITEMFILES = c3ditems/cgitems c3ditems/mapmaker c3ditems/playermaker c3ditems/raymaker
 FILES = $(MAINILES) $(SCREENFILES) $(ITEMFILES)
 OFILES = $(addsuffix .o, $(FILES))

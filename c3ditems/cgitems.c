@@ -69,7 +69,7 @@ int validatemap(s_map *map)
 	return (0);
 }
 
-s_map	*initmap(int fd)
+s_map	*initmap(int fd, void *mlx_ptr)
 {
 	s_map *res;
 	t_list	*milines;
@@ -84,7 +84,7 @@ s_map	*initmap(int fd)
 	fillmap(res, milines);
 	fillplayer(res);
 	fillcolors(res, milines);
-	filltextures(res, milines);
+	filltextures(res, milines, mlx_ptr);
 	while (milines)
 	{
 		aux = milines;

@@ -11,7 +11,7 @@ s_game	*newgame(int x, int y, int fd, int resolution)
 	res->gscreen = initcgscreen(x, y);
 	if (!res->gscreen)
 		return (0);
-	res->gmap = initmap(fd);
+	res->gmap = initmap(fd,res->gscreen->mlx);
 	if (!res->gmap)
 		return (0);
 	res->gplayer = initplayer(res->gmap->px, res->gmap->py, res->gmap->pdir, resolution);
@@ -26,4 +26,10 @@ void	endgame(s_game *dat)
 	endmap(dat->gmap);
 	endplayer(dat->gplayer);
 	free(dat);
+}
+int close_game(s_game *cub3d) 
+{
+    endgame(cub3d);
+    exit(0);
+    return (0);
 }

@@ -1,7 +1,7 @@
-NO        ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO        ./img/imagen1.xpm
+SO ./img/imagen2.xpm
+WE ./img/imagen3.xpm
+EA ./img/imagen4.xpm
 
 
 F 10,10,10
