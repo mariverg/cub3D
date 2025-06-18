@@ -23,7 +23,7 @@ void loadtextures(s_cgscreen *dat, char *files[4])
     while (i < 4)
     {
 		////// ADVERTENCIA ESTA AHORA TEXTURE 0 POR QUE ES LA UNICA QUE FUNCION, HAY QUE CAMBIARLO
-        dat->wall_textures[i] = load_texture(dat->mlx, files[0]);
+        dat->wall_textures[i] = load_texture(dat->mlx, files[i]);
         if (!dat->wall_textures[i])
             printf("Failed to load EA texture");
         i++;

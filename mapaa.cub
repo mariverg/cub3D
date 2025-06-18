@@ -1,7 +1,8 @@
 NO ./img/imagen1.xpm
-SO ./img/imagen2.xpm
-WE ./img/imagen3.xpm
-EA ./img/imagen4.xpm
+EA ./img/imagen1.xpm
+SO ./img/imagen5.xpm
+WE ./img/imagen1.xpm
+
 
 
 F 90,10,10

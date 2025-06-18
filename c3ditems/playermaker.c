@@ -26,8 +26,8 @@ void	moveplayer(s_player *dat, float vel)
 	float	x;
 	float	y;
 
-	x = vel * (cos(dat->position.dir));
-	y = vel * (sin(dat->position.dir));
+	x = vel * 5 * (cos(dat->position.dir));
+	y = vel * 5 * (sin(dat->position.dir));
 	dat->position.x = dat->position.x + x;
 	dat->position.y = dat->position.y + y;
 }
@@ -45,11 +45,11 @@ void	updateplayer(s_player *dat, char **map)
 
 	if (dat->turning == 1)
 	{
-		dat->position.dir = dat->position.dir + 0.005;
+		dat->position.dir = dat->position.dir + 0.02;
 	}
 	else if (dat->turning == -1)
 	{
-		dat->position.dir = dat->position.dir - 0.005;
+		dat->position.dir = dat->position.dir - 0.02;
 	}
 	calculaterender(dat, map);
 }

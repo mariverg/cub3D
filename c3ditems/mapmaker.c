@@ -105,11 +105,11 @@ int identifyline(char *c)
 	if (ft_strncmp(c, "NO ", 3) == 0)
 		return (1);
 	else if (ft_strncmp(c, "SO ", 3) == 0)
-		return (2);
-	else if (ft_strncmp(c, "WE ", 3) == 0)
 		return (3);
-	else if (ft_strncmp(c, "EA ", 3) == 0)
+	else if (ft_strncmp(c, "WE ", 3) == 0)
 		return (4);
+	else if (ft_strncmp(c, "EA ", 3) == 0)
+		return (2);
 	else if (ft_strncmp(c, "F ", 2) == 0)
 		return (5);
 	else if (ft_strncmp(c, "C ", 2) == 0)
