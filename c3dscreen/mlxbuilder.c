@@ -17,12 +17,19 @@ s_imgdata	*initimg(s_cgscreen *dat)
 s_cgscreen *initcgscreen(int w, int h)
 {
 	s_cgscreen *res;
+	int i;
 
 	res = malloc(sizeof(s_cgscreen));
 	if (!res)
 		return (0);
 	res->wide = w;
 	res->tall = h;
+	i = 0;
+	while (i < 4)
+	{
+		res->wall_textures[i] = 0;
+		i++;
+	}
 	res->mlx = mlx_init();
 	if (!res->mlx)
 		return (0);
@@ -39,8 +46,19 @@ s_cgscreen *initcgscreen(int w, int h)
 // En Linux, mlx_init hace un malloc
 void endcgmlx(s_cgscreen *dat)
 {
+	int	i;
 	if (dat)
 	{
+		i = 0;
+		while (i < 4)
+		{
+			if (dat->wall_textures[i]);
+			{
+				// free(dat->wall_textures[i]);
+				free_texture(dat->mlx, dat->wall_textures[i]);
+			}	
+			i++;
+		}
 		if (dat->mlx && dat->imgdata && dat->imgdata->img)
 			mlx_destroy_image(dat->mlx, dat->imgdata->img);
 		if (dat->mlx && dat->win)

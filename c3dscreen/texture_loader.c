@@ -15,6 +15,21 @@ t_texture *load_texture(void *mlx, char *path) {
     return tex;
 }
 
+void loadtextures(s_cgscreen *dat, char *files[4])
+{
+	int i;
+
+	i = 0;
+    while (i < 4)
+    {
+		////// ADVERTENCIA ESTA AHORA TEXTURE 0 POR QUE ES LA UNICA QUE FUNCION, HAY QUE CAMBIARLO
+        dat->wall_textures[i] = load_texture(dat->mlx, files[0]);
+        if (!dat->wall_textures[i])
+            printf("Failed to load EA texture");
+        i++;
+    }
+}
+
 // Libera una textura
 void free_texture(void *mlx, t_texture *tex) {
     if (tex) {

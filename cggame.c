@@ -14,6 +14,7 @@ s_game	*newgame(int x, int y, int fd, int resolution)
 	res->gmap = initmap(fd,res->gscreen->mlx);
 	if (!res->gmap)
 		return (0);
+	loadtextures(res->gscreen, res->gmap->textures);
 	res->gplayer = initplayer(res->gmap->px, res->gmap->py, res->gmap->pdir, resolution);
 	if (!res->gplayer)
 		return (0);

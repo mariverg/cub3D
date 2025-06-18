@@ -11,11 +11,11 @@ void	calculaterender(s_player *dat, char **map)
 	v.dir = dat->position.dir;
 
 	i = 0;
-	float displacedir = (dat->resolution / 2) * (-0.002) ;
+	float displacedir = (dat->resolution / 2) * (-0.001) ;
 	v.dir += displacedir;
 	while (i < dat->resolution)
 	{
-		v.dir += 0.002;
+		v.dir += 0.001;
 		dat->renderdata[i * 3] = castrenderray(&v, &(dat->renderdata[(i * 3) + 1]), &(dat->renderdata[(i * 3) + 2]), map);
 		i++;
 	}

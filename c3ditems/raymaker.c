@@ -203,8 +203,7 @@ float	castrenderray(s_vector *p, float *cuad, float *dist, char **map)
 					*cuad = 0;
 				else
 					*cuad = 2;
-				*dist = x;
-				// printf("Horizontal en x=%f   y=%f.\n", *x, *y);
+				*dist = x - (int)x;
 				return (res);
 			}
 			else
@@ -224,7 +223,7 @@ float	castrenderray(s_vector *p, float *cuad, float *dist, char **map)
 					*cuad = 1;
 				else
 					*cuad = 3;
-				*dist = y;
+				*dist = y - (int)y;
 				// printf("Vertical en x=%f   y=%f.\n", *x, *y);
 				return (res);
 			}

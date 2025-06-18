@@ -51,6 +51,10 @@ s_map	*ceromap()
 	res->textures[1] = 0;
 	res->textures[2] = 0;
 	res->textures[3] = 0;
+	// res->wall_textures[0] = 0;
+	// res->wall_textures[1] = 0;
+	// res->wall_textures[2] = 0;
+	// res->wall_textures[3] = 0;
 	res->fcolor = 0;
 	res->ccolor = 0;
 	res->raw = 0;
@@ -84,7 +88,8 @@ s_map	*initmap(int fd, void *mlx_ptr)
 	fillmap(res, milines);
 	fillplayer(res);
 	fillcolors(res, milines);
-	filltextures(res, milines, mlx_ptr);
+	filltextures(res, milines);
+	// filltextures2(res, milines, mlx_ptr);
 	while (milines)
 	{
 		aux = milines;
@@ -112,6 +117,8 @@ void	endmap(s_map *dat)
 	i = 0;
 	while (i < 4)
 	{
+		// if (dat->wall_textures[i])
+		// 	free(dat->wall_textures[i]);
 		free(dat->textures[i]);
 		i++;
 	}

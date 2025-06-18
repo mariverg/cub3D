@@ -8,3 +8,15 @@ void paint_textured_column(s_cgscreen *screen, t_texture *tex,
         pixeltoimg(screen->imgdata, screen_x, y, color);
     }
 }
+
+/*int get_texture_color(t_texture *tex, float x, float y)
+{
+	int	color;
+	int	xscaled;
+	int yscaled;
+
+	xscaled = x * tex->width;
+	yscaled = y * tex->height;
+	color = get_pixel_color(tex, xscaled, yscaled);
+	return (color);
+}*/

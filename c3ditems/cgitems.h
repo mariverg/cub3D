@@ -34,7 +34,7 @@ typedef struct cgmap
 	int		px;
 	int		py;
 	char	pdir;
-	t_texture *wall_textures[4];
+	// t_texture *wall_textures[4];
 	char	*textures[4];
 	int		fcolor;
 	int		ccolor;
@@ -48,7 +48,8 @@ t_list	*extractlines(int fd);
 void	fillmap(s_map *dat, t_list *tl);
 void	fillplayer(s_map *dat);
 void	fillcolors(s_map *dat, t_list *tl);
-void	filltextures(s_map *dat, t_list *tl, void *mlx_ptr);
+void	filltextures(s_map *dat, t_list *tl);
+// void	filltextures2(s_map *dat, t_list *tl, void *mlx_ptr);
 void	emptymap(s_map *dat);
 int 	identifyline(char *c);
 void ft_error(char *msg);

@@ -7,7 +7,7 @@
 int dokeydown(int keycode, s_game *param)
 {
 	if (keycode == 65307)
-    close_game(param);
+    	close_game(param);
 	if (keycode == 'd')
 		param->gplayer->turning = 1;
 	else if (keycode == 'a')
@@ -91,8 +91,8 @@ int main(int argc, char **argv) {
     int fd;
 
 	fd = open("mapaa.cub", O_RDONLY);
-    cub3d = newgame(800, 600, fd, 150);
-
+    cub3d = newgame(800, 600, fd, 800);
+	// write(1,"s",1);
     mlx_hook(cub3d->gscreen->win, 2, (1L << 0), dokeydown, cub3d);
     mlx_hook(cub3d->gscreen->win, 3, (1L << 1), dokeyup, cub3d);
     mlx_hook(cub3d->gscreen->win, 17, 0, close_game, cub3d);

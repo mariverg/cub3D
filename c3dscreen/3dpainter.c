@@ -1,6 +1,6 @@
 #include "cgscreen.h"
 
-void paintcollumn(s_cgscreen *m, int xd, int wid, float distance, int col)
+void paintcollumn(s_cgscreen *m, int xd, int wid, float *distance, int col)
 {
 	int x;
 	int y;
@@ -8,8 +8,8 @@ void paintcollumn(s_cgscreen *m, int xd, int wid, float distance, int col)
 	int	centery;
 	int color = col;
 
-	if (distance > 2)
-		dy = m->tall / distance;
+	if (distance[0] > 2)
+		dy = m->tall / distance[0];
 	else
 		dy = m->tall / 2;
 	// if (distance > 1)
@@ -22,13 +22,21 @@ void paintcollumn(s_cgscreen *m, int xd, int wid, float distance, int col)
 	// }
 	centery = m->tall / 2;
 
+	float fx;
+	float fy;
 	x = 0;
 	while (x < wid)
 	{
 		y = centery - dy;
 		while (y < centery + dy)
 		{
-			pixeltoimg(m->imgdata, x + xd, y, color);
+			// fx = (float)((float)(x + xd) / (float)m->wide);
+			fx = distance[2];
+			fy = (float)((float)(y - (centery - dy)) / (float)(dy * 2));
+			// printf("los floats son %f, %f", fx, fy);
+			// pixeltoimg(m->imgdata, x + xd, y, color);
+			pixeltoimg(m->imgdata, x + xd, y, get_pixel_color(m->wall_textures[0], fx, fy));
+			// pixeltoimg(m->imgdata, x + xd, y, get_pixel_color2(m->wall_textures[0],(x + xd) * 2, y * 2));
 			y++;
 		}
 		x++;
@@ -57,7 +65,7 @@ void	paint3d(s_cgscreen *m, float *renderdata, int resolution)
 				col = 0x00ff0000;
 			else if(renderdata[(i * 3) + 1] == 3)
 				col = 0x00aaaaaa;
-			paintcollumn(m, xd, width, renderdata[i * 3], col);
+			paintcollumn(m, xd, width, &renderdata[i * 3], col);
 		}
 		x += stepsizef;
 		i++;
