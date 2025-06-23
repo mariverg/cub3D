@@ -8,10 +8,14 @@ int dokeydown(int keycode, s_game *param)
 {
 	if (keycode == 65307)
     	close_game(param);
-	if (keycode == 'd')
-		param->gplayer->turning = 1;
+	else if (keycode == 65361)
+    	param->gplayer->turning = -1;
+	else if (keycode == 65363)
+    	param->gplayer->turning = 1;
+	else if (keycode == 'd')
+		param->gplayer->strifing = 1;
 	else if (keycode == 'a')
-		param->gplayer->turning = -1;
+		param->gplayer->strifing = -1;
 	else if (keycode == 'w')
 		param->gplayer->moving = 1;
 	else if (keycode == 's')
@@ -21,10 +25,18 @@ int dokeydown(int keycode, s_game *param)
 int dokeyup(int keycode, s_game *param)
 {
 
-	if (keycode == 'd')
-		param->gplayer->turning = 0;
+	// if (keycode == 'd')
+	// 	param->gplayer->turning = 0;
+	// else if (keycode == 'a')
+	// 	param->gplayer->turning = 0;
+	if (keycode == 65361)
+    	param->gplayer->turning = 0;
+	else if (keycode == 65363)
+    	param->gplayer->turning = 0;
+	else if (keycode == 'd')
+		param->gplayer->strifing = 0;
 	else if (keycode == 'a')
-		param->gplayer->turning = 0;
+		param->gplayer->strifing = 0;
 	else if (keycode == 'w')
 		param->gplayer->moving = 0;
 	else if (keycode == 's')
@@ -53,7 +65,7 @@ int update(s_game *cub3d)
 	paint3d(cub3d->gscreen, cub3d->gplayer->renderdata, cub3d->resolution);
 	printmapimg(cub3d->gscreen->imgdata, cub3d->gmap->raw, MINIMAPSZ);
 	castray(&(cub3d->gplayer->position), &x, &y, cub3d->gmap->raw);
-	// printf("la pos es x=%f y=%f\n", cub3d->gplayer->position.x, cub3d->gplayer->position.y);
+	// // printf("la pos es x=%f y=%f\n", cub3d->gplayer->position.x, cub3d->gplayer->position.y);
 	linetoimg(cub3d->gscreen, cub3d->gplayer->position.x * MINIMAPSZ, cub3d->gplayer->position.y * MINIMAPSZ, x * MINIMAPSZ, y * MINIMAPSZ);
 	
 	updatescreen(cub3d->gscreen);

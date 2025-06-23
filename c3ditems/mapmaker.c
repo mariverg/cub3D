@@ -262,39 +262,3 @@ void ft_error(char *msg)
     ft_putendl_fd(msg, 2);
     exit(1);
 }
-/*void filltextures2(s_map *dat, t_list *tl, void *mlx_ptr)
-{
-    while (tl)
-    {
-        char *line = tl->content;
-        if (identifyline(line) == 1) // NO
-        {
-            dat->textures[0] = extractroute(line);
-            dat->wall_textures[0] = load_texture(mlx_ptr, dat->textures[0]);
-            if (!dat->wall_textures[0])
-                ft_error("Failed to load NO texture");
-        }
-        else if (identifyline(line) == 2) // SO
-        {
-            dat->textures[1] = extractroute(line);
-            dat->wall_textures[1] = load_texture(mlx_ptr, dat->textures[0]);
-            if (!dat->wall_textures[1])
-                ft_error("Failed to load SO texture");
-        }
-        else if (identifyline(line) == 3) // WE
-        {
-            dat->textures[2] = extractroute(line);
-            dat->wall_textures[2] = load_texture(mlx_ptr, dat->textures[0]);
-            if (!dat->wall_textures[2])
-                ft_error("Failed to load WE texture");
-        }
-        else if (identifyline(line) == 4) // EA
-        {
-            dat->textures[3] = extractroute(line);
-            dat->wall_textures[3] = load_texture(mlx_ptr, dat->textures[0]);
-            if (!dat->wall_textures[3])
-                ft_error("Failed to load EA texture");
-        }
-        tl = tl->next;
-    }
-}*/

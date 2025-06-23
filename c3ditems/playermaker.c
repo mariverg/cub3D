@@ -32,6 +32,17 @@ void	moveplayer(s_player *dat, float vel)
 	dat->position.y = dat->position.y + y;
 }
 
+void	strifeplayer(s_player *dat, float vel)
+{
+	float	x;
+	float	y;
+
+	x = vel * 5 * (cos((dat->position.dir + 1.5707963f)));
+	y = vel * 5 * (sin((dat->position.dir + 1.5707963f)));
+	dat->position.x = dat->position.x + x;
+	dat->position.y = dat->position.y + y;
+}
+
 void	updateplayer(s_player *dat, char **map)
 {
 	if (dat->moving == 1)
@@ -41,6 +52,15 @@ void	updateplayer(s_player *dat, char **map)
 	else if (dat->moving == -1)
 	{
 		moveplayer(dat, -0.005);
+	}
+
+	if (dat->strifing == 1)
+	{
+		strifeplayer(dat, 0.005);
+	}
+	else if (dat->strifing == -1)
+	{
+		strifeplayer(dat, -0.005);
 	}
 
 	if (dat->turning == 1)

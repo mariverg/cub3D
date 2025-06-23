@@ -220,9 +220,9 @@ float	castrenderray(s_vector *p, float *cuad, float *dist, char **map)
 				y = miray.vy;
 				res = hypot(x - p->x, y - p->y);
 				if (x - p->x > 0)
-					*cuad = 1;
-				else
 					*cuad = 3;
+				else
+					*cuad = 1;
 				*dist = y - (int)y;
 				// printf("Vertical en x=%f   y=%f.\n", *x, *y);
 				return (res);

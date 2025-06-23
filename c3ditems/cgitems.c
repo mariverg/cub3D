@@ -10,6 +10,7 @@ s_player	*initplayer(float x, float y, char dir, int resolution)
 	res->position.x = x + 0.5;
 	res->position.y = y + 0.5;
 	res->moving = 0;
+	res->strifing = 0;
 	res->turning = 0;
 	res->resolution = resolution;
 	res->renderdata = malloc(sizeof(float) * (resolution * 3));
@@ -51,15 +52,50 @@ s_map	*ceromap()
 	res->textures[1] = 0;
 	res->textures[2] = 0;
 	res->textures[3] = 0;
-	// res->wall_textures[0] = 0;
-	// res->wall_textures[1] = 0;
-	// res->wall_textures[2] = 0;
-	// res->wall_textures[3] = 0;
 	res->fcolor = 0;
 	res->ccolor = 0;
 	res->raw = 0;
 	res->maxy = 0;
 	return (res);
+}
+
+int validatemaptile(char **map, int x, int y)
+{
+	if (x == 0 || y == 0)
+		return (0);
+	if (map[x - 1][y] != '0' && map[x - 1][y] != '1')
+		return (0);
+	if (map[x][y - 1] != '0' && map[x][y - 1] != '1')
+		return (0);
+	if (map[x][y + 1] != '0' && map[x][y + 1] != '1')
+		return (0);
+	if (map[x + 1] == 0)
+		return (0);
+	if (map[x + 1][y] != '0' && map[x + 1][y] != '1')
+		return (0);
+	return (1);
+}
+
+int validatemapstructure(char **map)
+{
+	int i;
+	int j;
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] == '0')
+			{
+				if (!validatemaptile(map, i, j))
+					return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 int validatemap(s_map *map)
@@ -70,6 +106,8 @@ int validatemap(s_map *map)
 		return (2);
 	if (!map->raw)
 		return (3);
+	if (!validatemapstructure(map->raw))
+		return (4);
 	return (0);
 }
 
@@ -106,7 +144,7 @@ s_map	*initmap(int fd, void *mlx_ptr)
 	else
 	{
 		printf ("required data missing, code = %i\n", validatemap(res));
-		return (0);
+		exit (0);
 	}
 }
 

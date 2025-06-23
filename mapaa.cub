@@ -1,7 +1,7 @@
 NO ./img/imagen1.xpm
 EA ./img/imagen1.xpm
-SO ./img/imagen5.xpm
-WE ./img/imagen1.xpm
+SO ./img/imagen1.xpm
+WE ./img/imagen5.xpm
 
 
 
@@ -13,9 +13,9 @@ C 90,90,90
 1000000001
 1000000001
 1000000001
+1000011111
 1000010001
 1000010001
 1000010001
-1000000001
 1000000001
 1111111111

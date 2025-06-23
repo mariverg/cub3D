@@ -25,6 +25,7 @@ typedef struct cgplayer
 	s_vector	position;
 	int			turning;
 	int			moving;
+	int			strifing;
 	int			resolution;
 	float		*renderdata;
 }	s_player;
