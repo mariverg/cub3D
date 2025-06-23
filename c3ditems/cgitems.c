@@ -19,7 +19,7 @@ s_player	*initplayer(float x, float y, char dir, int resolution)
 	if (dir == 'N')
 		res->position.dir = 4.7124;
 	else if (dir == 'E')
-		res->position.dir = 0;
+		res->position.dir = 0.01;
 	else if (dir == 'S')
 		res->position.dir = 1.5708;
 	else if (dir == 'W')

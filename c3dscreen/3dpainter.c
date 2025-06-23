@@ -12,6 +12,8 @@ void paintcollumn(s_cgscreen *m, int xd, int wid, float *distance)
 	// else
 	// 	dy = m->tall / 2;
 	dy = m->tall / distance[0];
+	if (dy > (m->tall * 20))
+		dy = m->tall * 20;
 	// if (distance > 1)
 	// {
 	// 	color = color - (distance * 20);
