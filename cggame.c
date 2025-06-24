@@ -11,7 +11,7 @@ s_game	*newgame(int x, int y, int fd, int resolution)
 	res->gscreen = initcgscreen(x, y);
 	if (!res->gscreen)
 		return (0);
-	res->gmap = initmap(fd,res->gscreen->mlx);
+	res->gmap = initmap(fd);
 	if (!res->gmap)
 		return (0);
 	loadtextures(res->gscreen, res->gmap->textures);

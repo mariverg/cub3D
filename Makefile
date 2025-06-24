@@ -3,8 +3,8 @@ SCREENFILES = c3dscreen/mlxbuilder c3dscreen/imgtools c3dscreen/colorbuilder c3d
 ITEMFILES = c3ditems/cgitems c3ditems/mapmaker c3ditems/playermaker c3ditems/raymaker
 FILES = $(MAINILES) $(SCREENFILES) $(ITEMFILES)
 OFILES = $(addsuffix .o, $(FILES))
-FLAGS = 
-FLAGS2 = -Wall -Wextra -Werror
+FLAGS2 = 
+FLAGS = -Wall -Wextra -Werror
 COMP = gcc
 NAME = a.out
 

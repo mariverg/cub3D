@@ -86,7 +86,7 @@ void fillscreenimggrid(s_cgscreen *m, int line)
 		j = 0;
 		while (j < m->tall){
 			if (i % line == 0 || j % line == 0)
-				pixeltoimg(m->imgdata, i, j, 0xffffffff);
+				pixeltoimg(m->imgdata, i, j, color);
 			else
 				pixeltoimg(m->imgdata, i, j, 0);
 			j++;

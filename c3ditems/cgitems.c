@@ -111,7 +111,7 @@ int validatemap(s_map *map)
 	return (0);
 }
 
-s_map	*initmap(int fd, void *mlx_ptr)
+s_map	*initmap(int fd)
 {
 	s_map *res;
 	t_list	*milines;

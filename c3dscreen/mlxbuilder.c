@@ -52,7 +52,7 @@ void endcgmlx(s_cgscreen *dat)
 		i = 0;
 		while (i < 4)
 		{
-			if (dat->wall_textures[i]);
+			if (dat->wall_textures[i])
 			{
 				free_texture(dat->mlx, dat->wall_textures[i]);
 			}	

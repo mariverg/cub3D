@@ -43,7 +43,7 @@ typedef struct cgmap
 	int		maxy;
 }	s_map;
 
-s_map	*initmap(int fd, void *mlx_ptr);
+s_map	*initmap(int fd);
 void	endmap(s_map *dat);
 t_list	*extractlines(int fd);
 void	fillmap(s_map *dat, t_list *tl);

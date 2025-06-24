@@ -131,8 +131,6 @@ t_list	*extractlines(int fd)
 	int i;
 	char	cont[1024];
 	t_list	*milist;
-	char *aux;
-	char *c;
 
 	i = 0;
 	milist = 0;
@@ -205,8 +203,6 @@ int	extractcolor(char *c)
 
 void fillcolors(s_map *dat, t_list *tl)
 {
-	int micolor;
-
 	while (tl)
 	{
 		if(identifyline(tl->content) == 5)
@@ -231,6 +227,7 @@ char	*extractroute(char *c)
 		else
 			return (ft_strdup(c));
 	}
+	return (0);
 }
 
 void filltextures(s_map *dat, t_list *tl)

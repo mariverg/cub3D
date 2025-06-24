@@ -44,17 +44,6 @@ int dokeyup(int keycode, s_game *param)
 	return (0);
 }
 
-int domouse(int button, int x, int y, s_game *param)
-{
-	write(1, "hola", 4);
-	return (0);
-}
-int domousemove(int x, int y, s_game *param)
-{
-	write(1, "hola", 4);
-	return (0);
-}
-
 int update(s_game *cub3d)
 {
 
@@ -101,6 +90,8 @@ int update(s_game *cub3d)
 int main(int argc, char **argv) {
     s_game *cub3d;
     int fd;
+	(void) argc;
+	(void) argv;
 
 	fd = open("mapaa.cub", O_RDONLY);
     cub3d = newgame(800, 600, fd, 800);

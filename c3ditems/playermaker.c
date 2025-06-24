@@ -3,13 +3,11 @@
 void	calculaterender(s_player *dat, char **map)
 {
 	int i;
-	float x;
-	float y;
 	s_vector v;
+	
 	v.x = dat->position.x;
 	v.y = dat->position.y;
 	v.dir = dat->position.dir;
-
 	i = 0;
 	float displacedir = (dat->resolution / 2) * (-0.001) ;
 	v.dir += displacedir;
