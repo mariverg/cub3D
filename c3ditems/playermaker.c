@@ -1,25 +1,28 @@
 #include "cgitems.h"
 
-void	calculaterender(s_player *dat, char **map)
+void	calculaterender(t_player *dat, char **map)
 {
-	int i;
-	s_vector v;
-	
+	int			i;
+	t_vector	v;
+	float		displacedir;
+
 	v.x = dat->position.x;
 	v.y = dat->position.y;
 	v.dir = dat->position.dir;
 	i = 0;
-	float displacedir = (dat->resolution / 2) * (-0.001) ;
+	displacedir = (dat->resolution / 2) * (-0.001);
 	v.dir += displacedir;
 	while (i < dat->resolution)
 	{
 		v.dir += 0.001;
-		dat->renderdata[i * 3] = castrenderray(&v, &(dat->renderdata[(i * 3) + 1]), &(dat->renderdata[(i * 3) + 2]), map);
+		dat->renderdata[i * 3] = castrenderray(&v,
+				&(dat->renderdata[(i * 3) + 1]),
+				&(dat->renderdata[(i * 3) + 2]), map);
 		i++;
 	}
 }
 
-void	moveplayer(s_player *dat, float vel, char **map)
+void	moveplayer(t_player *dat, float vel, char **map)
 {
 	float	x;
 	float	y;
@@ -37,7 +40,7 @@ void	moveplayer(s_player *dat, float vel, char **map)
 	}
 }
 
-void	strifeplayer(s_player *dat, float vel, char **map)
+void	strifeplayer(t_player *dat, float vel, char **map)
 {
 	float	x;
 	float	y;
@@ -55,7 +58,7 @@ void	strifeplayer(s_player *dat, float vel, char **map)
 	}
 }
 
-void	updateplayer(s_player *dat, char **map)
+void	updateplayer(t_player *dat, char **map)
 {
 	if (dat->moving == 1)
 	{
@@ -65,7 +68,6 @@ void	updateplayer(s_player *dat, char **map)
 	{
 		moveplayer(dat, -0.005, map);
 	}
-
 	if (dat->strifing == 1)
 	{
 		strifeplayer(dat, 0.005, map);
@@ -74,7 +76,6 @@ void	updateplayer(s_player *dat, char **map)
 	{
 		strifeplayer(dat, -0.005, map);
 	}
-
 	if (dat->turning == 1)
 	{
 		dat->position.dir = dat->position.dir + 0.02;

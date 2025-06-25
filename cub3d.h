@@ -1,5 +1,5 @@
-#ifndef CUB3D
-# define CUB3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "libft.h" 
 # include "cgscreen.h"
@@ -7,17 +7,15 @@
 
 # define MINIMAPSZ 25
 
-typedef struct t_game
+typedef struct s_game
 {
-	s_cgscreen	*gscreen;
-	s_map		*gmap;
-	s_player	*gplayer;
+	t_cgscreen	*gscreen;
+	t_map		*gmap;
+	t_player	*gplayer;
 	int			resolution;
-}	s_game;
+}	t_game;
 
-s_game	*newgame(int x, int y, int fd, int resolution);
-void	endgame(s_game *dat);
-int close_game(s_game *cub3d);
-void paint_textured_column(s_cgscreen *screen, t_texture *tex, 
-                          int screen_x, int wall_height, int tex_x);
+t_game	*newgame(int x, int y, int fd, int resolution);
+void	endgame(t_game *dat);
+int		close_game(t_game *cub3d);
 #endif

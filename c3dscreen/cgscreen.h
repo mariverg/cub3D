@@ -1,12 +1,12 @@
-#ifndef CGSCREEN
-# define CGSCREEN
+#ifndef CGSCREEN_H
+# define CGSCREEN_H
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
 # include "mlx.h"
 
-
-typedef struct	cgimgdata {
+typedef struct cgimgdata
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -14,63 +14,72 @@ typedef struct	cgimgdata {
 	int		endian;
 	int		wide;
 	int		tall;
-}	s_imgdata;
+}	t_imgdata;
 
-typedef struct cgcolor {
+typedef struct cgcolor
+{
 	int	r;
 	int	g;
 	int	b;
 	int	a;
-}	s_cgcolor;
+}	t_cgcolor;
 
-typedef struct s_texture {
-    void    *img;       // Puntero a la imagen de miniLibX
-    char    *addr;      // Datos de píxeles
-    int     width;      // Ancho de la imagen
-    int     height;     // Alto de la imagen
-    int     bpp;        // Bits por píxel
-    int     line_len;   // Bytes por línea de imagen
-    int     endian;     // Orden de bytes
-} t_texture;
+typedef struct s_texture
+{
+	void	*img;
+	char	*addr;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_texture;
 
-typedef struct cgscreen {
-	void	*mlx;
-	void	*win;
-	s_imgdata	*imgdata;
-	s_cgcolor	*cgcolor;
+typedef struct cgscreen
+{
+	void		*mlx;
+	void		*win;
+	t_imgdata	*imgdata;
+	t_cgcolor	*cgcolor;
 	t_texture	*wall_textures[4];
-	int		wide;
-	int		tall;
-}	s_cgscreen;
+	int			wide;
+	int			tall;
+}	t_cgscreen;
 
-s_cgscreen	*initcgscreen(int w, int h);
-void	endcgmlx(s_cgscreen *dat);
-void	updatescreen(s_cgscreen *dat);
+typedef struct intgroup
+{
+	int	x;
+	int	y;
+	int	color;
+	int	ix;
+	int	iy;
+}	t_intgroup;
 
-void	pixeltoimg(s_imgdata *data, int x, int y, int color);
-void	sqaretoimg(s_imgdata *data, int x, int y, int color, int sz);
-void	paraleltoimg(s_imgdata *data, int xa, int ya, int color, int xb, int yb);
-void	paintmapimg(s_cgscreen *m, char	**raw, float sz);
-void	fillscreenimg(s_cgscreen *m, int colorc, int colorf);
-void	fillscreenimggrid(s_cgscreen *m, int line);
-void	linetoimg(s_cgscreen *m, int xa, int ya, int xb, int yb);
+t_cgscreen	*initcgscreen(int w, int h);
+void		endcgmlx(t_cgscreen *dat);
+void		updatescreen(t_cgscreen *dat);
 
-void loadtextures(s_cgscreen *dat, char *files[4]);
+void		pixeltoimg(t_imgdata *data, int x, int y, int color);
+void		sqaretoimg(t_imgdata *data, t_intgroup *tig, int sz);
+void		fillscreenimg(t_cgscreen *m, int colorc, int colorf);
+void		fillscreenimggrid(t_cgscreen *m, int line);
 
-void	paint3d(s_cgscreen *m, float *renderdata, int res);
+void		loadtextures(t_cgscreen *dat, char *files[4]);
 
-void	printmapimg(s_imgdata *data, char **c, int scale);
+void		paint3d(t_cgscreen *m, float *renderdata, int res);
 
-t_texture *load_texture(void *mlx, char *path);
-void free_texture(void *mlx, t_texture *tex);
-int get_pixel_color(t_texture *tex, float x, float y);
-int get_pixel_color2(t_texture *tex, int x, int y);
+void		printmapimg(t_imgdata *data, char **c, int scale);
 
-s_cgcolor colorwhite();
-s_cgcolor colorblack();
-s_cgcolor colorred();
-s_cgcolor colorgreen();
-s_cgcolor colorblue();
-int colortoint(s_cgcolor *color);
+t_texture	*load_texture(void *mlx, char *path);
+void		free_texture(void *mlx, t_texture *tex);
+int			get_pixel_color(t_texture *tex, float x, float y);
+int			get_pixel_color2(t_texture *tex, int x, int y);
+
+t_cgcolor	colorwhite(void);
+t_cgcolor	colorblack(void);
+t_cgcolor	colorred(void);
+t_cgcolor	colorgreen(void);
+t_cgcolor	colorblue(void);
+int			colortoint(t_cgcolor *color);
 
 #endif

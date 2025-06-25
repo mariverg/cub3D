@@ -1,25 +1,26 @@
 #include "cgscreen.h"
 
-s_imgdata	*initimg(s_cgscreen *dat)
+t_imgdata	*initimg(t_cgscreen *dat)
 {
-	s_imgdata	*res;
+	t_imgdata	*res;
 
-	res = malloc(sizeof(s_imgdata));
+	res = malloc(sizeof(t_imgdata));
 	if (!res)
 		return (0);
 	res->img = mlx_new_image(dat->mlx, dat->wide, dat->tall);
-	res->addr = mlx_get_data_addr(res->img, &res->bits_per_pixel, &res->line_length, &res->endian);
+	res->addr = mlx_get_data_addr(res->img, &res->bits_per_pixel,
+			&res->line_length, &res->endian);
 	res->tall = dat->tall;
 	res->wide = dat->wide;
 	return (res);
 }
 
-s_cgscreen *initcgscreen(int w, int h)
+t_cgscreen	*initcgscreen(int w, int h)
 {
-	s_cgscreen *res;
-	int i;
+	t_cgscreen	*res;
+	int			i;
 
-	res = malloc(sizeof(s_cgscreen));
+	res = malloc(sizeof(t_cgscreen));
 	if (!res)
 		return (0);
 	res->wide = w;
@@ -42,11 +43,10 @@ s_cgscreen *initcgscreen(int w, int h)
 	return (res);
 }
 
-// mlx_destroy_display solo es necesario en Linux
-// En Linux, mlx_init hace un malloc
-void endcgmlx(s_cgscreen *dat)
+void	endcgmlx(t_cgscreen *dat)
 {
 	int	i;
+
 	if (dat)
 	{
 		i = 0;
@@ -55,7 +55,7 @@ void endcgmlx(s_cgscreen *dat)
 			if (dat->wall_textures[i])
 			{
 				free_texture(dat->mlx, dat->wall_textures[i]);
-			}	
+			}
 			i++;
 		}
 		if (dat->mlx && dat->imgdata && dat->imgdata->img)
@@ -71,7 +71,7 @@ void endcgmlx(s_cgscreen *dat)
 	}
 }
 
-void updatescreen(s_cgscreen *dat)
+void	updatescreen(t_cgscreen *dat)
 {
 	mlx_put_image_to_window(dat->mlx, dat->win, dat->imgdata->img, 0, 0);
 }

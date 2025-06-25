@@ -1,27 +1,8 @@
 #include "cgscreen.h"
 
-s_cgcolor	colorrgb(int r, int g, int b)
+t_cgcolor	colorwhite(void)
 {
-	s_cgcolor res;
-
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-	{
-		res.a = 0;
-		res.r = 0;
-		res.g = 0;
-		res.b = 0;
-		return (res);	
-	}
-	res.a = 0;
-	res.r = r;
-	res.g = g;
-	res.b = b;
-	return (res);
-}
-
-s_cgcolor colorwhite()
-{
-	s_cgcolor res;
+	t_cgcolor	res;
 
 	res.a = 0;
 	res.r = 255;
@@ -29,9 +10,10 @@ s_cgcolor colorwhite()
 	res.b = 255;
 	return (res);
 }
-s_cgcolor colorblack()
+
+t_cgcolor	colorblack(void)
 {
-	s_cgcolor res;
+	t_cgcolor	res;
 
 	res.a = 0;
 	res.r = 0;
@@ -39,9 +21,10 @@ s_cgcolor colorblack()
 	res.b = 0;
 	return (res);
 }
-s_cgcolor colorred()
+
+t_cgcolor	colorred(void)
 {
-	s_cgcolor res;
+	t_cgcolor	res;
 
 	res.a = 0;
 	res.r = 255;
@@ -49,9 +32,10 @@ s_cgcolor colorred()
 	res.b = 0;
 	return (res);
 }
-s_cgcolor colorgreen()
+
+t_cgcolor	colorgreen(void)
 {
-	s_cgcolor res;
+	t_cgcolor	res;
 
 	res.a = 0;
 	res.r = 0;
@@ -59,32 +43,14 @@ s_cgcolor colorgreen()
 	res.b = 0;
 	return (res);
 }
-s_cgcolor colorblue()
+
+t_cgcolor	colorblue(void)
 {
-	s_cgcolor res;
+	t_cgcolor	res;
 
 	res.a = 0;
 	res.r = 0;
 	res.g = 0;
 	res.b = 255;
-	return (res);
-}
-
-int colortoint(s_cgcolor *color)
-{
-	int res = 0;
-	int i;
-
-	i = color->b;
-	res += i;
-	i = color->g;
-	i = i << 8;
-	res += i;
-	i = color->r;
-	i = i << 16;
-	res += i;
-	i = color->a;
-	i = i << 24;
-	res += i;
 	return (res);
 }

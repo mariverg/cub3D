@@ -1,10 +1,11 @@
 #include "cgscreen.h"
 
-void	printmapimg(s_imgdata *data, char **c, int scale)
+void	printmapimg(t_imgdata *data, char **c, int scale)
 {
-	int i;
-	int j;
-	int half;
+	t_intgroup	tig;
+	int			i;
+	int			j;
+	int			half;
 
 	i = 0;
 	half = scale / 2;
@@ -15,7 +16,10 @@ void	printmapimg(s_imgdata *data, char **c, int scale)
 		{
 			if (c[i][j] == '1')
 			{
-				sqaretoimg(data, (j * scale) + half, (i * scale) + half, 0xffffffff, half - 1);
+				tig.x = (j * scale) + half;
+				tig.y = (i * scale) + half;
+				tig.color = 0xffffffff;
+				sqaretoimg(data, &tig, half - 1);
 			}
 			j++;
 		}

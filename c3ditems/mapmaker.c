@@ -1,7 +1,7 @@
 #include "cgitems.h"
 // #include <unistd.h>
 
-void	printmapdata(s_map *mp)
+/*void	printmapdata(t_map *mp)
 {
 	char	*aux;
 
@@ -44,11 +44,11 @@ void	printmapdata(s_map *mp)
 		write(1, "\n", 1);
 		c++;
 	}
-}
+}*/
 
-int mpsize(t_list *tl)
+int	mpsize(t_list *tl)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	while (tl)
@@ -60,9 +60,9 @@ int mpsize(t_list *tl)
 	return (res);
 }
 
-void	fillmap(s_map *dat, t_list *tl)
+void	fillmap(t_map *dat, t_list *tl)
 {
-	int i;
+	int	i;
 
 	dat->maxy = mpsize(tl);
 	if (!dat->maxy)
@@ -73,7 +73,7 @@ void	fillmap(s_map *dat, t_list *tl)
 	i = 0;
 	while (tl)
 	{
-		if(identifyline(tl->content) == 7)
+		if (identifyline(tl->content) == 7)
 		{
 			dat->raw[i] = ft_strdup(tl->content);
 			i++;
@@ -83,9 +83,9 @@ void	fillmap(s_map *dat, t_list *tl)
 	dat->raw[i] = 0;
 }
 
-void	emptymap(s_map *dat)
+void	emptymap(t_map *dat)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (dat->raw[i])
@@ -96,7 +96,7 @@ void	emptymap(s_map *dat)
 	free(dat->raw);
 }
 
-int identifyline(char *c)
+int	identifyline(char *c)
 {
 	if (!c)
 		return (0);
@@ -124,11 +124,9 @@ int identifyline(char *c)
 	return (0);
 }
 
-
 t_list	*extractlines(int fd)
 {
-
-	int i;
+	int		i;
 	char	cont[1024];
 	t_list	*milist;
 
@@ -150,112 +148,4 @@ t_list	*extractlines(int fd)
 	if (i > 0)
 		ft_lstadd_back(&milist, ft_lstnew(ft_strdup(cont)));
 	return (milist);
-}
-
-void	fillplayer(s_map *dat)
-{
-	int i;
-	int	j;
-
-	i = 0;
-	while(dat->raw[i])
-	{
-		j = 0;
-		while(dat->raw[i][j])
-		{
-			if(dat->raw[i][j] == 'N' || dat->raw[i][j] == 'E' || dat->raw[i][j] == 'S' || dat->raw[i][j] == 'W')
-			{
-				dat->px = j;
-				dat->py = i;
-				dat->pdir = dat->raw[i][j]; 
-				dat->raw[i][j] = '0';
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-int	extractcolor(char *c)
-{
-	int i;
-	int indic;
-	char color[4];
-	int colors[3];
-
-	indic = 0;
-	while (*c && indic < 3)
-	{
-		i = 0;
-		while (*c >= '0' && *c <= '9' && i < 3)
-			color[i++] = *c++;
-
-		if (i)
-		{
-			color[i] = 0;
-			colors[indic++] = ft_atoi(color);
-		}
-		if (*c)
-			c++;
-	}
-	return ((colors[0] << 16) + (colors[1] << 8) + colors[2]);
-}
-
-void fillcolors(s_map *dat, t_list *tl)
-{
-	while (tl)
-	{
-		if(identifyline(tl->content) == 5)
-		{
-			dat->fcolor = extractcolor(tl->content);
-		}
-		else if (identifyline(tl->content) == 6)
-		{
-			dat->ccolor = extractcolor(tl->content);
-		}
-		tl = tl->next;
-	}
-}
-
-char	*extractroute(char *c)
-{
-	c+=2;
-	while(*c)
-	{
-		if(*c == ' ' || *c == '\t')
-			c++;
-		else
-			return (ft_strdup(c));
-	}
-	return (0);
-}
-
-void filltextures(s_map *dat, t_list *tl)
-{
-	while (tl)
-	{
-		if(identifyline(tl->content) == 1)
-		{
-			dat->textures[0] = extractroute(tl->content);
-		}
-		else if (identifyline(tl->content) == 2)
-		{
-			dat->textures[1] = extractroute(tl->content);
-		}
-		else if (identifyline(tl->content) == 3)
-		{
-			dat->textures[2] = extractroute(tl->content);
-		}
-		else if (identifyline(tl->content) == 4)
-		{
-			dat->textures[3] = extractroute(tl->content);
-		}
-		tl = tl->next;
-	}
-}
-void ft_error(char *msg)
-{
-    ft_putendl_fd("Error", 2);
-    ft_putendl_fd(msg, 2);
-    exit(1);
 }
