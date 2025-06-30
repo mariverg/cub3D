@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include <sys/time.h>
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -42,7 +43,23 @@ int	dokeyup(int keycode, t_game *param)
 
 int	update(t_game *cub3d)
 {
-	updateplayer(cub3d->gplayer, cub3d->gmap->raw);
+	static struct timeval	ltv = {0, 0};
+	struct timeval			ctv;
+
+	if (ltv.tv_sec == 0 && ltv.tv_usec == 0)
+		gettimeofday(&ltv, 0);
+	gettimeofday(&ctv, 0);
+	if (ctv.tv_sec > ltv.tv_sec)
+	{
+		ltv.tv_sec = ctv.tv_sec;
+		ltv.tv_usec = ctv.tv_usec;
+		updateplayer(cub3d->gplayer, cub3d->gmap->raw);
+	}
+	else if (ctv.tv_usec > ltv.tv_usec + 1000)
+	{
+		ltv.tv_usec = ltv.tv_usec + 1000;
+		updateplayer(cub3d->gplayer, cub3d->gmap->raw);
+	}
 	fillscreenimg(cub3d->gscreen, cub3d->gmap->ccolor, cub3d->gmap->fcolor);
 	paint3d(cub3d->gscreen, cub3d->gplayer->renderdata, cub3d->resolution);
 	printmapimg(cub3d->gscreen->imgdata, cub3d->gmap->raw, MINIMAPSZ);
