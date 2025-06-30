@@ -58,6 +58,11 @@ int	main(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	fd = open("mapaa.cub", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("error loading .cub\n");
+		exit (1);
+	}
 	cub3d = newgame(800, 600, fd, 800);
 	mlx_hook(cub3d->gscreen->win, 2, (1L << 0), dokeydown, cub3d);
 	mlx_hook(cub3d->gscreen->win, 3, (1L << 1), dokeyup, cub3d);

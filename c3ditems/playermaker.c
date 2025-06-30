@@ -5,20 +5,24 @@ void	calculaterender(t_player *dat, char **map)
 	int			i;
 	t_vector	v;
 	float		displacedir;
+	float		frontdir;
 
 	v.x = dat->position.x;
 	v.y = dat->position.y;
-	v.dir = dat->position.dir;
+	frontdir = dat->position.dir;
 	i = 0;
 	displacedir = (dat->resolution / 2) * (-0.001);
-	v.dir += displacedir;
 	while (i < dat->resolution)
 	{
-		v.dir += 0.001;
+		displacedir = displacedir + 0.001;
+		v.dir = frontdir + displacedir;
 		dat->renderdata[i * 3] = castrenderray(&v,
 				&(dat->renderdata[(i * 3) + 1]),
 				&(dat->renderdata[(i * 3) + 2]), map);
+		dat->renderdata[i * 3] = dat->renderdata[i * 3] * cos(displacedir);
 		i++;
+		// dat->renderdata[i * 3] = dat->renderdata[i * 3] * cos(v.dir);
+		// dat->renderdata[i * 3] = 1;
 	}
 }
 

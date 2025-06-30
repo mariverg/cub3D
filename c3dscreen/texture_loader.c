@@ -6,12 +6,16 @@ t_texture	*load_texture(void *mlx, char *path)
 
 	tex = malloc(sizeof(t_texture));
 	if (!tex)
-		return (NULL);
+	{
+		printf("memory fail\n");
+		exit(1);
+	}
 	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->width, &tex->height);
 	if (!tex->img)
 	{
+		printf("error loading texture\n");
 		free(tex);
-		return (NULL);
+		exit(0);
 	}
 	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp,
 			&tex->line_len, &tex->endian);
