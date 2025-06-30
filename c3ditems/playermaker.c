@@ -21,8 +21,6 @@ void	calculaterender(t_player *dat, char **map)
 				&(dat->renderdata[(i * 3) + 2]), map);
 		dat->renderdata[i * 3] = dat->renderdata[i * 3] * cos(displacedir);
 		i++;
-		// dat->renderdata[i * 3] = dat->renderdata[i * 3] * cos(v.dir);
-		// dat->renderdata[i * 3] = 1;
 	}
 }
 
