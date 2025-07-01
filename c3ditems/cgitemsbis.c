@@ -71,7 +71,10 @@ t_map	*initmap(int fd)
 		return (res);
 	else
 	{
-		printf ("required data missing, code = %i\n", validatemap(res));
+		if (validatemap(res) == 4)
+			printf ("invalid map data\n");
+		else	
+			printf ("required data missing, code = %i\n", validatemap(res));
 		exit (0);
 	}
 }

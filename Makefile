@@ -6,7 +6,7 @@ OFILES = $(addsuffix .o, $(FILES))
 FLAGS2 = 
 FLAGS = -Wall -Wextra -Werror
 COMP = gcc
-NAME = a.out
+NAME = cub3D
 
 MLX_DIR = minilibx-linux
 LIBFT_DIR = libft
