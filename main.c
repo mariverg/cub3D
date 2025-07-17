@@ -47,7 +47,10 @@ int	update(t_game *cub3d)
 	struct timeval			ctv;
 
 	if (ltv.tv_sec == 0 && ltv.tv_usec == 0)
+	{
 		gettimeofday(&ltv, 0);
+		updateplayer(cub3d->gplayer, cub3d->gmap->raw);
+	}
 	gettimeofday(&ctv, 0);
 	if (ctv.tv_sec > ltv.tv_sec)
 	{
@@ -62,7 +65,6 @@ int	update(t_game *cub3d)
 	}
 	fillscreenimg(cub3d->gscreen, cub3d->gmap->ccolor, cub3d->gmap->fcolor);
 	paint3d(cub3d->gscreen, cub3d->gplayer->renderdata, cub3d->resolution);
-	printmapimg(cub3d->gscreen->imgdata, cub3d->gmap->raw, MINIMAPSZ);
 	updatescreen(cub3d->gscreen);
 	return (0);
 }

@@ -3,7 +3,6 @@ SCREENFILES = c3dscreen/mlxbuilder c3dscreen/imgtools c3dscreen/colorbuilder c3d
 ITEMFILES = c3ditems/rendermaker c3ditems/cgitems c3ditems/cgitemsbis c3ditems/mapmaker c3ditems/mapmakerbis c3ditems/mapmakertris c3ditems/playermaker c3ditems/raymaker
 FILES = $(MAINILES) $(SCREENFILES) $(ITEMFILES)
 OFILES = $(addsuffix .o, $(FILES))
-FLAGS2 = 
 FLAGS = -Wall -Wextra -Werror
 COMP = gcc
 NAME = cub3D
@@ -49,7 +48,7 @@ val: $(MLX) $(OFILES)
 	$(COMP) -o $(NAME) $(OFILES) $(LIBRARIES)
 
 memtest:
-	valgrind --leak-check=full ./$(NAME)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME) "mapa.cub"
 
 fulltest:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)

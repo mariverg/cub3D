@@ -1,7 +1,7 @@
 NO ./img/imagen1.xpm
-EA ./img/imagen1.xpm
-SO ./img/imagen1.xpm
-WE ./img/imagen5.xpm
+EA ./img/madera.xpm
+SO ./img/grad1.xpm
+WE ./img/teapot.xpm
 
 
 
@@ -16,6 +16,6 @@ C 90,90,90
 1000011111
 1000010001
 1000010001
-1000010001
-1000000000
+10000100001
+1000000001
 1111111111
