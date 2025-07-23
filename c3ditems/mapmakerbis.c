@@ -1,11 +1,22 @@
 #include "cgitems.h"
 
+int	fillplayerdat(t_map *dat, int i, int j)
+{
+	dat->px = j;
+	dat->py = i;
+	dat->pdir = dat->raw[i][j];
+	dat->raw[i][j] = '0';
+	return (1);
+}
+
 void	fillplayer(t_map *dat)
 {
 	int	i;
 	int	j;
+	int	errorchk;
 
 	i = 0;
+	errorchk = 0;
 	while (dat->raw[i])
 	{
 		j = 0;
@@ -14,10 +25,12 @@ void	fillplayer(t_map *dat)
 			if (dat->raw[i][j] == 'N' || dat->raw[i][j] == 'E'
 				|| dat->raw[i][j] == 'S' || dat->raw[i][j] == 'W')
 			{
-				dat->px = j;
-				dat->py = i;
-				dat->pdir = dat->raw[i][j];
-				dat->raw[i][j] = '0';
+				if (errorchk)
+				{
+					printf("multiples inicios para pj\n");
+					exit(1);
+				}
+				errorchk = errorchk + fillplayerdat(dat, i, j);
 			}
 			j++;
 		}
@@ -25,26 +38,50 @@ void	fillplayer(t_map *dat)
 	}
 }
 
+int	extractonecolor(char *c, unsigned int *i)
+{
+	int		res;
+	char	color[8];
+
+	res = 0;
+	while (c[res] >= '0' && c[res] <= '9')
+	{
+		color[res] = c[res];
+		res++;
+	}
+	color[res] = 0;
+	*i = ft_atoi(color);
+	if (*i > 255)
+	{
+		printf("color fuera de rango\n");
+		exit (1);
+	}
+	return (res);
+}
+
 int	extractcolor(char *c)
 {
-	int		i;
-	int		indic;
-	char	color[4];
-	int		colors[3];
+	int				indic;
+	unsigned int	colors[8];
 
 	indic = 0;
-	while (*c && indic < 3)
+	c++;
+	while (*c)
 	{
-		i = 0;
-		while (*c >= '0' && *c <= '9' && i < 3)
-			color[i++] = *c++;
-		if (i)
-		{
-			color[i] = 0;
-			colors[indic++] = ft_atoi(color);
-		}
-		if (*c)
+		if (*c == ' ' || *c == ',' || *c == '\n' || *c == '\t')
 			c++;
+		else if (*c >= '0' && *c <= '9')
+			c = c + extractonecolor(c, &(colors[indic++]));
+		else if (*c != '\0')
+		{
+			printf("caracter no permitido en la definicion de color %c\n", *c);
+			exit (1);
+		}
+	}
+	if (indic != 3)
+	{
+		printf("datos erroneos en la definicion de color\n");
+		exit (1);
 	}
 	return ((colors[0] << 16) + (colors[1] << 8) + colors[2]);
 }
@@ -64,3 +101,43 @@ void	fillcolors(t_map *dat, t_list *tl)
 		tl = tl->next;
 	}
 }
+
+// int	extractcolor(char *c)
+// {
+// 	int					i;
+// 	int					indic;
+// 	char				color[8];
+// 	unsigned int		colors[8];
+
+// 	indic = 0;
+// 	c++;
+// 	while (*c)
+// 	{
+// 		i = 0;
+// 		while (*c >= '0' && *c <= '9')
+// 			color[i++] = *c++;
+// 		if (i)
+// 		{
+// 			color[i] = 0;
+// 			colors[indic++] = ft_atoi(color);
+// 			if (colors[indic - 1] > 255)
+// 			{
+// 				printf("color fuera de rango\n");
+// 				exit (1);
+// 			}
+// 		}
+// 		if (*c == ' ' || *c == ',' || *c == '\n' || *c == '\t')
+// 			c++;
+// 		else if (*c != '\0')
+// 		{
+// 			printf("caracter no permitido en la definicion de color %c\n", *c);
+// 			exit (1);
+// 		}
+// 	}
+// 	if (indic != 3)
+// 	{
+// 		printf("datos erroneos en la definicion de color\n");
+// 		exit (1);
+// 	}
+// 	return ((colors[0] << 16) + (colors[1] << 8) + colors[2]);
+// }

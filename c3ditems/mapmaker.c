@@ -1,5 +1,4 @@
 #include "cgitems.h"
-// #include <unistd.h>
 
 /*void	printmapdata(t_map *mp)
 {
@@ -54,7 +53,14 @@ int	mpsize(t_list *tl)
 	while (tl)
 	{
 		if (identifyline(tl->content) == 7)
-			res++;
+		{
+			if (tl->next && identifyline(tl->next->content) != 7)
+			{
+				printf("error mapa truncado\n");
+				exit(1);
+			}
+		}
+		res++;
 		tl = tl->next;
 	}
 	return (res);
@@ -139,6 +145,8 @@ t_list	*extractlines(int fd)
 			cont[i] = 0;
 			if (i > 0)
 				ft_lstadd_back(&milist, ft_lstnew(ft_strdup(cont)));
+			else
+				ft_lstadd_back(&milist, ft_lstnew(ft_strdup(" ")));
 			i = 0;
 		}
 		else
