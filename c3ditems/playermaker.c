@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   playermaker.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:37:49 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:37:50 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cgitems.h"
 
 void	moveplayer(t_player *dat, float vel, char **map)
@@ -88,27 +100,3 @@ void	updateplayer(t_player *dat, char **map)
 	}
 	calculaterender(dat, map);
 }
-
-/*void	moveplayer(t_player *dat, float vel, char **map)
-{
-	float	x;
-	float	y;
-
-	(void) map;
-	x = vel * 5 * (cos(dat->position.dir));
-	y = vel * 5 * (sin(dat->position.dir));
-	dat->position.x = dat->position.x + x;
-	dat->position.y = dat->position.y + y;
-}
-
-void	strifeplayer(t_player *dat, float vel, char **map)
-{
-	float	x;
-	float	y;
-
-	(void) map;
-	x = vel * 5 * (cos((dat->position.dir + 1.5707963f)));
-	y = vel * 5 * (sin((dat->position.dir + 1.5707963f)));
-	dat->position.x = dat->position.x + x;
-	dat->position.y = dat->position.y + y;
-}*/

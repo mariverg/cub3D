@@ -1,12 +1,12 @@
-NO ./img/imagen1.xpm
-EA ./img/madera.xpm
-SO ./img/grad1.xpm
-WE ./img/teapot.xpm
+NO ./img/path_to_the_north_texture.xpm
+EA ./img/path_to_the_east_texture.xpm
+SO ./img/path_to_the_south_texture.xpm
+WE ./img/path_to_the_west_texture.xpm
 
 
 
-F 0,0,0
-C 255,255,255
+F 220,100,123
+C 25,255,10
 
 1111111111
 1E00000001

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cgscreen.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:39:49 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:39:50 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CGSCREEN_H
 # define CGSCREEN_H
 # include <stdio.h>
@@ -62,7 +74,7 @@ void		updatescreen(t_cgscreen *dat);
 void		pixeltoimg(t_imgdata *data, int x, int y, int color);
 void		sqaretoimg(t_imgdata *data, t_intgroup *tig, int sz);
 void		fillscreenimg(t_cgscreen *m, int colorc, int colorf);
-void		fillscreenimggrid(t_cgscreen *m, int line);
+//void		fillscreenimggrid(t_cgscreen *m, int line);
 
 void		loadtextures(t_cgscreen *dat, char *files[4]);
 

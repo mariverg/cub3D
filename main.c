@@ -103,7 +103,7 @@ int	main(int argc, char **argv)
 	int		fd;
 
 	fd = loadsecure(argc, argv);
-	cub3d = newgame(800, 600, fd, 800);
+	cub3d = newgame(1000, 800, fd, 1000);
 	mlx_hook(cub3d->gscreen->win, 2, (1L << 0), dokeydown, cub3d);
 	mlx_hook(cub3d->gscreen->win, 3, (1L << 1), dokeyup, cub3d);
 	mlx_hook(cub3d->gscreen->win, 17, 0, close_game, cub3d);

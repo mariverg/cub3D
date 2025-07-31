@@ -1,49 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mapmaker.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:37:08 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:37:09 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cgitems.h"
-
-/*void	printmapdata(t_map *mp)
-{
-	char	*aux;
-
-	write(1,"player ",7);
-	aux = ft_itoa(mp->px);
-	write(1,aux,ft_strlen(aux));
-	free(aux);
-	write(1," ",1);
-	aux = ft_itoa(mp->py);
-	write(1,aux,ft_strlen(aux));
-	free(aux);
-	write(1," ",1);
-	write(1, &(mp->pdir), 1);
-	write(1,"\n",1);
-
-	write(1,"colors ",7);
-	aux = ft_itoa(mp->fcolor);
-	write(1,aux,ft_strlen(aux));
-	free(aux);
-	write(1," ",1);
-	aux = ft_itoa(mp->ccolor);
-	write(1,aux,ft_strlen(aux));
-	free(aux);
-	write(1,"\n",1);
-
-	write(1,"textures\n",9);
-	write(1,mp->textures[0],ft_strlen(mp->textures[0]));
-	write(1," ",1);
-	write(1,mp->textures[1],ft_strlen(mp->textures[1]));
-	write(1," ",1);
-	write(1,mp->textures[2],ft_strlen(mp->textures[2]));
-	write(1," ",1);
-	write(1,mp->textures[3],ft_strlen(mp->textures[3]));
-	write(1,"\n",1);
-	
-	char **c = mp->raw;
-	while (*c)
-	{
-		write(1, *c, ft_strlen(*c));
-		write(1, "\n", 1);
-		c++;
-	}
-}*/
 
 int	mpsize(t_list *tl)
 {

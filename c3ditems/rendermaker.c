@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendermaker.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:38:39 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:38:40 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cgitems.h"
 
 int	inmp(float x, float y, int cuad, char **map)
@@ -95,45 +107,3 @@ float	castrenderray(t_vector *p, float *cuad, float *dist, char **map)
 		return (hordist);
 	}
 }
-
-/*float castrenderray(t_vector *p, float *cuad, float *dist, char **map)
-{
-	const int	MAXCICLES = 20;
-	t_ray		ray;
-	t_vector	dists;
-	int			cichor;
-	int			cicver;
-
-	cichor = 0;
-	cicver = 0;
-	dists.x = gethor(p, &ray.hx, &ray.hy, cichor);
-	dists.y = getver(p, &ray.vx, &ray.vy, cicver);
-	while (cichor < MAXCICLES || cicver < MAXCICLES)
-	{
-		if ((dists.x <= dists.y && cichor < MAXCICLES) || cicver >= MAXCICLES)
-		{
-			if (inmp(ray.hx, ray.hy, 0, map))
-			{
-				dists.dir = hypot(ray.hx - p->x, ray.hy - p->y);
-				*cuad = (ray.hy - p->y > 0) ? 0 : 2;
-				*dist = ray.hx - (int)ray.hx;
-				return (dists.dir);
-			}
-			cichor++;
-			dists.x = gethor(p, &ray.hx, &ray.hy, cichor);
-		}
-		else
-		{
-			if (inmp(ray.vx, ray.vy, 1, map))
-			{
-				dists.dir = hypot(ray.vx - p->x, ray.vy - p->y);
-				*cuad = (ray.vx - p->x > 0) ? 3 : 1;
-				*dist = ray.vy - (int)ray.vy;
-				return (dists.dir);
-			}
-			cicver++;
-			dists.y = getver(p, &ray.vx, &ray.vy, cicver);
-		}
-	}
-	return (INFINITY);
-}*/

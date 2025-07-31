@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cgitems.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:36:47 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:39:23 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CGITEMS_H
 # define CGITEMS_H
 # include <stdlib.h>
@@ -57,15 +69,13 @@ t_player	*initplayer(float x, float y, char dir, int resolution);
 void		endplayer(t_player *dat);
 void		updateplayer(t_player *dat, char **map);
 
-// float		castray(t_vector *p, float *x, float *y, char **map);
+
 float		castrenderray(t_vector *p, float *cuad, float *dist, char **map);
 float		getver(t_vector *p, float *x, float *y, int cicle);
 float		gethor(t_vector *p, float *x, float *y, int cicle);
-// int			validatemapstructure(char **map);
 int			validatemaptile(char **map, int x, int y);
 int			validatemap(t_map *map);
 t_map		*ceromap(void);
-// void		printmapdata(t_map *mp);
 
 int			securemap(int x, int y, char **map);
 #endif

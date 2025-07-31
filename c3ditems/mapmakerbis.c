@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mapmakerbis.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mariverg <mariverg@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/31 10:37:27 by mariverg          #+#    #+#             */
+/*   Updated: 2025/07/31 10:37:29 by mariverg         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cgitems.h"
 
 int	fillplayerdat(t_map *dat, int i, int j)
@@ -101,43 +113,3 @@ void	fillcolors(t_map *dat, t_list *tl)
 		tl = tl->next;
 	}
 }
-
-// int	extractcolor(char *c)
-// {
-// 	int					i;
-// 	int					indic;
-// 	char				color[8];
-// 	unsigned int		colors[8];
-
-// 	indic = 0;
-// 	c++;
-// 	while (*c)
-// 	{
-// 		i = 0;
-// 		while (*c >= '0' && *c <= '9')
-// 			color[i++] = *c++;
-// 		if (i)
-// 		{
-// 			color[i] = 0;
-// 			colors[indic++] = ft_atoi(color);
-// 			if (colors[indic - 1] > 255)
-// 			{
-// 				printf("color fuera de rango\n");
-// 				exit (1);
-// 			}
-// 		}
-// 		if (*c == ' ' || *c == ',' || *c == '\n' || *c == '\t')
-// 			c++;
-// 		else if (*c != '\0')
-// 		{
-// 			printf("caracter no permitido en la definicion de color %c\n", *c);
-// 			exit (1);
-// 		}
-// 	}
-// 	if (indic != 3)
-// 	{
-// 		printf("datos erroneos en la definicion de color\n");
-// 		exit (1);
-// 	}
-// 	return ((colors[0] << 16) + (colors[1] << 8) + colors[2]);
-// }
